@@ -1,0 +1,28 @@
+body { margin: 0; padding: 0; width: 400px; color: #4a4a4a; }
+h1 {
+    margin: 0;
+    padding: 18px 10px 18px 55px;
+    background: #f4f3f0;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    font-size: 18px;
+    font-weight: normal;
+    background: url(./icon.png) 10px/40px no-repeat
+}
+
+#summary {
+    padding: 16px 8px;
+    font-size: 14px;
+}
+
+.placement {
+  color: blue;
+}
+
+.prwidget {
+  color: green;
+}
+
+.root_component {
+  color: red;
+}
+
