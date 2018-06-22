@@ -12,11 +12,13 @@
     chrome.runtime.sendMessage({ 'messageType': 'startNode' });
     var partName = n.getAttribute('data-pagebreakdown-name');
     var partType = n.getAttribute('data-pagebreakdown-type');
+    var partGuid = n.getAttribute('data-pagebreakdown-guid');
     if (n.nodeName === 'DIV') {
       chrome.runtime.sendMessage({
         'messageType': 'processNode', 
         'partName': partName,
-        'partType': partType
+        'partType': partType,
+        'partGuid': partGuid
       });
     }
     for (var child = tw.firstChild(); child != null; child = tw.nextSibling()) {

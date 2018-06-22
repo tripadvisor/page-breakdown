@@ -27,17 +27,32 @@
     else if (message.partName === previous) {
       dupCount++;
       var summary = document.getElementById('summary');
-      summary.lastChild.innerHTML = previous + ' (x' + dupCount + ')';
+      var text = '';
+      for (var i = 0; i < indentation; i++) {
+        text += '&nbsp;&nbsp;';
+      }
+      summary.lastChild.innerHTML = text + previous + ' (x' + dupCount + ')';
     }
     else {
       var summary = document.getElementById('summary');
       var newNode = document.createElement('div');
       newNode.setAttribute('class', message.partType);
+      newNode.setAttribute('data-guid', message.partGuid);
       var text = '';
       for (var i = 0; i < indentation; i++) {
         text += '&nbsp;&nbsp;';
       }
       newNode.innerHTML = text + message.partName;
+      if (message.partGuid != null) {
+        newNode.onclick = function(element) {
+          var elem = element.target.getAttribute('data-guid');
+          chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+            chrome.tabs.executeScript(tabs[0].id, {
+              code: 'window.scrollTo({ top: document.querySelector("[data-pagebreakdown-guid=\\\"' + elem + '\\\"]").offsetTop, behavior: "smooth"}); document.querySelector("[data-pagebreakdown-guid=\\\"' + elem + '\\\"]").style.backgroundColor="yellow"; setTimeout(function(){ document.querySelector("[data-pagebreakdown-guid=\\\"' + elem + '\\\"]").style.backgroundColor=""; }, 3000);'
+            });
+          });
+        };
+      }
       previous = message.partName;
       dupCount = 0;
       summary.appendChild(newNode);
